@@ -15,6 +15,7 @@ import (
 // work with.
 type Date int
 
+// String formats dates as YYYY-MM-DD
 func (d Date) String() string {
 	return jd.ToDate(int(d))
 }
@@ -44,7 +45,7 @@ func (d Date) Format(format string) string {
 	return d.Time().Format(format)
 }
 
-// DateFromString parses dates in the format YYYY-MM-DD
+// FromString parses dates in the format YYYY-MM-DD
 func FromString(s string) (Date, error) {
 	if len(s) != 10 {
 		return 0, errors.Errorf("cannot convert '%s' to date", s)
