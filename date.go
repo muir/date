@@ -12,8 +12,19 @@ import (
 
 // Date represents a date using a Julian Day that has been
 // wrapped with methods to make it easy to use and easy to
-// work with.
+// work with.  Potentially the structure of Date could change
+// in the future for performance reasons.  The internal structure
+// is guaranteed to remain compatible for use as a map key
+// and remain comparable for < = >.
 type Date int
+
+func (d Date) JD() int {
+	return int(d)
+}
+
+func FromJD(j int) Date {
+	return Date(j)
+}
 
 // String formats dates as YYYY-MM-DD
 func (d Date) String() string {

@@ -26,3 +26,6 @@ so that dates look great when used as map keys and as values.
 
 Database convience is provided by implementations of sql.Valuer and sql.Scanner 
 
+## Current status
+
+This is brand new code.  It has tests, but it isn't use anywhere yet.

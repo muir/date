@@ -14,6 +14,7 @@ func TestBasics(t *testing.T) {
 	assert.Equal(t, "2010-11-13", d.AddDate(0, 0, 1).String(), "add day")
 	assert.Equal(t, "2013-09-13", d.AddDate(3, -2, 1).String(), "add ymd")
 	assert.Equal(t, 1, d.Sub(d.AddDate(0, 0, -1)), "one day diff")
+	assert.Equal(t, d, date.FromJD(d.JD()), "round trip to int")
 
 	d2, err := date.Parse("01/02/06", "08/06/12")
 	if assert.NoError(t, err, "parse") {
