@@ -30,7 +30,7 @@ func TestBasics(t *testing.T) {
 	assert.Panics(t, func() { _ = date.MustFromString("01/02/06") }, "must not datefromstring")
 
 	now := time.Now()
-	assert.Equal(t, now.Format("2006-01-02"), date.DateFromTime(now).String(), "todays date")
+	assert.Equal(t, now.Format("2006-01-02"), date.FromTime(now).String(), "todays date")
 
 	var dp date.Date
 	if assert.NoError(t, (&dp).Scan(int64(20210304)), "scan int") {

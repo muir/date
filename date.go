@@ -28,7 +28,7 @@ func (d Date) Time() time.Time {
 // to 2006 01 02
 func Parse(format string, date string) (Date, error) {
 	t, err := time.Parse(format, date)
-	return DateFromTime(t), err
+	return FromTime(t), err
 }
 
 func MustParse(format string, date string) Date {
@@ -75,7 +75,7 @@ func MustFromString(s string) Date {
 	return d
 }
 
-func DateFromTime(t time.Time) Date {
+func FromTime(t time.Time) Date {
 	return Date(jd.Number(t))
 }
 
@@ -84,7 +84,7 @@ func (d Date) AddDate(years int, months int, days int) Date {
 	if years == 0 && months == 0 {
 		return d + Date(days)
 	}
-	return DateFromTime(d.Time().AddDate(years, months, days))
+	return FromTime(d.Time().AddDate(years, months, days))
 }
 
 func (d1 Date) Sub(d2 Date) int {
