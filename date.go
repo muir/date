@@ -18,6 +18,8 @@ import (
 // and remain comparable for < = >.
 type Date int
 
+const Zero = Date(0)
+
 func (d Date) JD() int {
 	return int(d)
 }
@@ -26,12 +28,23 @@ func FromJD(j int) Date {
 	return Date(j)
 }
 
+func (d Date) IsZero() bool {
+	return d != 0
+}
+
 // String formats dates as YYYY-MM-DD
+// The zero date becomes the empty string.
 func (d Date) String() string {
+	if d == 0 {
+		return ""
+	}
 	return jd.ToDate(int(d))
 }
 
 func (d Date) Time() time.Time {
+	if d == 0 {
+		return time.Time{}
+	}
 	year, month, day := jd.J2YMD(int(d))
 	return time.Date(year, time.Month(month), day, 0, 0, 0, 0, time.UTC)
 }
@@ -53,11 +66,18 @@ func MustParse(format string, date string) Date {
 
 // Format is just time.Format
 func (d Date) Format(format string) string {
+	if d == 0 {
+		return time.Time{}.Format(format)
+	}
 	return d.Time().Format(format)
 }
 
 // FromString parses dates in the format YYYY-MM-DD
+// The empty string becomes the zero date.
 func FromString(s string) (Date, error) {
+	if len(s) == 0 {
+		return 0, nil
+	}
 	if len(s) != 10 {
 		return 0, errors.Errorf("cannot convert '%s' to date", s)
 	}
@@ -88,6 +108,9 @@ func MustFromString(s string) Date {
 }
 
 func FromTime(t time.Time) Date {
+	if t.IsZero() {
+		return 0
+	}
 	return Date(jd.Number(t))
 }
 
@@ -141,6 +164,9 @@ func (d *Date) Scan(src interface{}) error {
 
 // Value implements sql.Valuer
 func (d Date) Value() (driver.Value, error) {
+	if d == 0 {
+		return nil, nil
+	}
 	return d.String(), nil
 }
 

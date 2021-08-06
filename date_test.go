@@ -47,7 +47,7 @@ func TestBasics(t *testing.T) {
 		assert.Equal(t, now.Format("2006-01-02"), dp.String(), "scanned time date")
 	}
 	if assert.NoError(t, (&dp).Scan(nil), "scan nil") {
-		assert.Equal(t, date.Date(0), dp, "scanned nil date")
+		assert.Equal(t, date.FromJD(0), dp, "scanned nil date")
 	}
 	if assert.NoError(t, (&dp).Scan([]byte("2024-11-12")), "scan bytes") {
 		assert.Equal(t, "2024-11-12", dp.String(), "scanned bytes date")
@@ -62,4 +62,18 @@ func TestBasics(t *testing.T) {
 			assert.Equal(t, u.String(), "2024-11-12", "unmarshal")
 		}
 	}
+}
+
+func TestZero(t *testing.T) {
+	zd := date.Zero
+	assert.Equal(t, zd, date.FromJD(0), "from jd")
+	assert.Equal(t, 0, zd.JD(), "to jd")
+	assert.Equal(t, zd, date.FromTime(time.Time{}), "from time")
+	assert.True(t, zd.Time().IsZero(), "to time")
+	assert.Equal(t, zd, date.MustFromString(""), "from string")
+	assert.Equal(t, "", zd.String())
+	assert.Equal(t, zd.Format("2006/01/02"), time.Time{}.Format("2006/01/02"), "format")
+	zdv, err := zd.Value()
+	assert.NoError(t, err, "value error")
+	assert.Nil(t, zdv, "zero value")
 }
