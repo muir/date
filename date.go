@@ -171,7 +171,7 @@ func (d Date) Value() (driver.Value, error) {
 }
 
 // MarshalText implements encoding.TextMarshaler so that dates look good
-// in map keys
+// in JSON map keys and other places.
 func (d Date) MarshalText() ([]byte, error) {
 	return []byte(d.String()), nil
 }
