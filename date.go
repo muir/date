@@ -29,7 +29,7 @@ func FromJD(j int) Date {
 }
 
 func (d Date) IsZero() bool {
-	return d != 0
+	return d == 0
 }
 
 // String formats dates as YYYY-MM-DD
