@@ -3,7 +3,7 @@
 
 [![GoDoc](https://godoc.org/github.com/muir/date?status.png)](https://pkg.go.dev/github.com/muir/date)
 [![Maintainability](https://api.codeclimate.com/v1/badges/264ba0b44207b27ecb9e/maintainability)](https://codeclimate.com/github/muir/date/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/264ba0b44207b27ecb9e/test_coverage)](https://codeclimate.com/github/muir/date/test_coverage)
+[![Coverage](http://gocover.io/_badge/github.com/muir/date)](https://gocover.io/github.com/muir/date)
 
 Install:
 
