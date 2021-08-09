@@ -15,6 +15,7 @@ func TestBasics(t *testing.T) {
 	assert.Equal(t, "2013-09-13", d.AddDate(3, -2, 1).String(), "add ymd")
 	assert.Equal(t, 1, d.Sub(d.AddDate(0, 0, -1)), "one day diff")
 	assert.Equal(t, d, date.FromJD(d.JD()), "round trip to int")
+	assert.False(t, d.IsZero(), "is zero")
 
 	mt, err := d.MarshalText()
 	assert.NoError(t, err, "marshal")
@@ -80,4 +81,5 @@ func TestZero(t *testing.T) {
 	zdv, err := zd.Value()
 	assert.NoError(t, err, "value error")
 	assert.Nil(t, zdv, "zero value")
+	assert.True(t, zd.IsZero(), "is zero")
 }

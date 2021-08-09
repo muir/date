@@ -29,7 +29,7 @@ func FromJD(j int) Date {
 }
 
 func (d Date) IsZero() bool {
-	return d != 0
+	return d == 0
 }
 
 // String formats dates as YYYY-MM-DD
@@ -132,34 +132,29 @@ func (d *Date) Scan(src interface{}) error {
 	case int64:
 		// YYYYMMDD integer
 		*d = Date(jd.YMD2J(int(t)/10000, (int(t)%10000)/100, int(t)%100))
-		return nil
 	case float64:
 		// YYYYMMDD integer
 		*d = Date(jd.YMD2J(int(t)/10000, (int(t)%10000)/100, int(t)%100))
-		return nil
 	case []byte:
 		j, err := jd.ToNumber(string(t))
 		if err != nil {
 			return err
 		}
 		*d = Date(j)
-		return nil
 	case string:
 		j, err := jd.ToNumber(t)
 		if err != nil {
 			return err
 		}
 		*d = Date(j)
-		return nil
 	case time.Time:
 		*d = Date(jd.Number(t))
-		return nil
 	case nil:
 		*d = 0
-		return nil
 	default:
 		return fmt.Errorf("Scan: unable to scan type %T into UUID", src)
 	}
+	return nil
 }
 
 // Value implements sql.Valuer
@@ -171,7 +166,7 @@ func (d Date) Value() (driver.Value, error) {
 }
 
 // MarshalText implements encoding.TextMarshaler so that dates look good
-// in map keys
+// in JSON map keys and other places.
 func (d Date) MarshalText() ([]byte, error) {
 	return []byte(d.String()), nil
 }
