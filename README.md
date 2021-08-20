@@ -1,5 +1,5 @@
 
-# date - dates as Julian Days with methods to make them easy to work with
+# date - dates as Julian Days with methods to make them easy to work with - Golang
 
 [![GoDoc](https://godoc.org/github.com/muir/date?status.png)](https://pkg.go.dev/github.com/muir/date)
 [![Maintainability](https://api.codeclimate.com/v1/badges/264ba0b44207b27ecb9e/maintainability)](https://codeclimate.com/github/muir/date/maintainability)
